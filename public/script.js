@@ -3,11 +3,7 @@ new Vue ({
     el:'#app',
     data:{
         total:0,
-        items:[
-            {id:1,title :'Item one'},
-            {id:2,title :'Item two'},
-            {id:3,title :'Item three'}            
-        ],
+        items:[],
         cart:[],
         search:''
     },
@@ -49,7 +45,8 @@ new Vue ({
         },
         onSubmit:function(){
             this.$http.get('/search/'.concat(this.search)).then(function(res){
-                console.log(res);
+                this.items=res.data;
+                // console.log(res.data);
             });
         }
     },
