@@ -60,15 +60,16 @@ new Vue ({
             }
         },
         onSubmit:function(){
-            this.items=[];
-            this.loading=true;
-            this.$http.get('/search/'.concat(this.search)).then(function(res){
-                this.results=res.data;
-                this.appendItems();
-                this.lastSearch = this.search;
-                this.loading=false;
-                // console.log(this.items.length,this.results.length);
-            });
+            if(this.search.length){
+                this.items=[];
+                this.loading=true;
+                this.$http.get('/search/'.concat(this.search)).then(function(res){
+                    this.results=res.data;
+                    this.appendItems();
+                    this.lastSearch = this.search;
+                    this.loading=false; 
+                 });
+            }
         }
     },
     filters:{
