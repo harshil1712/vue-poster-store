@@ -1,10 +1,12 @@
 const PRICE =9.99;
+const LOAD_NUM =10;
 new Vue ({
     el:'#app',
     data:{
         total:0,
         items:[],
         cart:[],
+        results:[],
         search:'trump',
         lastSearch:"",
         loading:false,
@@ -50,7 +52,8 @@ new Vue ({
             this.items=[];
             this.loading=true;
             this.$http.get('/search/'.concat(this.search)).then(function(res){
-                this.items=res.data;
+                this.results=res.data;
+                this.items=res.data.splice(0,LOAD_NUM);
                 this.lastSearch = this.search;
                 this.loading=false;
                 // console.log(res.data);
@@ -66,3 +69,5 @@ new Vue ({
         this.onSubmit();
     }
 });
+
+console.log(scrollMonitor);
