@@ -7,12 +7,18 @@ new Vue ({
         items:[],
         cart:[],
         results:[],
-        search:'trump',
+        search:'90s',
         lastSearch:"",
         loading:false,
         price:PRICE
     },
     methods:{
+        appendItems: function(){
+            if(this.items.length<this.results.length){
+                var append=this.results.slice(this.items.length, this.items.length+LOAD_NUM);
+                this.items= this.items.concat(append);
+            }
+        },
         addItem:function(index){
             this.total+=PRICE;
             var item=this.items[index];
@@ -53,10 +59,10 @@ new Vue ({
             this.loading=true;
             this.$http.get('/search/'.concat(this.search)).then(function(res){
                 this.results=res.data;
-                this.items=res.data.splice(0,LOAD_NUM);
+                this.appendItems();
                 this.lastSearch = this.search;
                 this.loading=false;
-                // console.log(res.data);
+                // console.log(this.items.length,this.results.length);
             });
         }
     },
@@ -66,8 +72,12 @@ new Vue ({
         }
     },
     mounted: function(){
-        this.onSubmit();
+        this.onSubmit();        
+        var vueInstance = this;
+        var elem = document.getElementById('product-list-bottom');
+        var watcher = scrollMonitor.create(elem);
+        watcher.enterViewport(function(){
+            vueInstance.appendItems();
+        });
     }
 });
-
-console.log(scrollMonitor);
