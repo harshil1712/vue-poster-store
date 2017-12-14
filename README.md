@@ -1,6 +1,6 @@
-# Ultimate Vue.js Developers Course
+# Vue Poster Store
 
-Source code for the [Ultimate Vue.js Developers Course](http://bit.ly/2mPK8ny).
+Inspired from the [Ultimate Vue.js Developers Course](http://bit.ly/2mPK8ny).
 
 ### Project 1: Vue.js Poster Shop
 
